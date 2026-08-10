@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: user-service-template
+
+  messages:
+    basename: messages
+    encoding: UTF-8
+
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:user_service}
+    username: ${DB_USERNAME:user_service}
+    password: ${DB_PASSWORD:user_service}
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+  docker:
+    compose:
+      enabled: true
+      lifecycle-management: start-and-stop
+
+server:
+  port: ${SERVER_PORT:8080}
+
+logging:
+  level:
+    org.hibernate.SQL: ${SQL_LOG_LEVEL:info}
